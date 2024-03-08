@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LinkedList<T> implements Iterable<T> {
     Node<T> head;
@@ -10,17 +12,32 @@ public class LinkedList<T> implements Iterable<T> {
         this.head = null;
     }
 
-    // Método para agregar un elemento al final de la lista
+    public Node<T> getHead() {
+        return head;
+    }
+
+    /**
+     *
+     * @param value
+     */
     public void addAtEnd(T value) {
-        Node<T> newNode = new Node<>(value);
         if (head == null) {
-            head = newNode;
+            head = new Node<>(value);
         } else {
-            Node<T> current = head;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = newNode;
+            addAtEnd(head, value);
+        }
+    }
+
+    /**
+     *
+     * @param current
+     * @param value
+     */
+    private void addAtEnd(Node<T> current, T value) {
+        if (current.next == null) {
+            current.next = new Node<>(value);
+        } else {
+            addAtEnd(current.next, value);
         }
     }
 
@@ -151,8 +168,8 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     // Método para imprimir la lista
-    public void printLinkedList() {
-        Node<T> current = head;
+    public void printLinkedList(Node<Integer> head) {
+        Node<T> current = this.head;
         while (current != null) {
             System.out.print(current.value + " ");
             current = current.next;
@@ -179,6 +196,22 @@ public class LinkedList<T> implements Iterable<T> {
             current = current.next;
         }
         return size;
+    }
+
+    //Ejercicios exraaaaaa
+
+    public void invert() {
+        head = invert(head);
+    }
+
+    private Node<T> invert(Node<T> current) {
+        if (current == null || current.next == null) {
+            return current;
+        }
+        Node<T> invertedList = invert(current.next);
+        current.next.next = current;
+        current.next = null;
+        return invertedList;
     }
 
     // Implementación del método iterator de la interfaz Iterable
