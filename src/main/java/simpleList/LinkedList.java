@@ -247,6 +247,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
             System.out.print(current.value + "-> ");
             current = current.next;
         }
+        System.out.print("null");
         System.out.println();
     }
 
