@@ -4,6 +4,9 @@ import doubleList.DoubleLinkedList;
 import polynomial.PolynomialLinkedList;
 import simpleList.LinkedList;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 
 public class Exercises {
@@ -116,6 +119,13 @@ public class Exercises {
         System.out.println("Printing the polynomial:");
         testPolynomialLinkedList();
         System.out.println();
+
+        //12. Write a program that calculates the mean and standard deviation of a set of N real numbers
+        System.out.println("Solution 12:");
+        LinkedList<Double> linkedList = Exercises.createLinkedListFromFile("src/main/resources/values.txt");
+        linkedList.printLinkedList();
+        System.out.println("The mean is: " + getMean());
+        System.out.println("The standard deviation is: " + getStandartDeviation());
     }
 
     /**
@@ -238,6 +248,62 @@ public class Exercises {
 
         //Print the value table of the polynomial.
         polynomial.printValueTable();
+    }
+
+    //12. Write a program that calculates the mean and standard deviation of a set of N real numbers
+
+    /**
+     * Gets the mean of n values
+     * @return
+     */
+    public static double getMean() {
+        LinkedList<Double> linkedList = createLinkedListFromFile("src/main/resources/values.txt");
+        double sum = 0;
+        int count = 0;
+        Iterator<Double> iterator = linkedList.iterator();
+        while (iterator.hasNext()) {
+            sum += iterator.next();
+            count++;
+        }
+        return sum / count;
+    }
+
+    /**
+     * Gets the standart deviation
+     * @return
+     */
+    public static double getStandartDeviation() {
+        LinkedList<Double> linkedList = createLinkedListFromFile("src/main/resources/values.txt");
+        double mean = getMean();
+        double sumOfSquaredDifferences = 0;
+        int count = 0;
+        Iterator<Double> iterator = linkedList.iterator();
+        while (iterator.hasNext()) {
+            double value = iterator.next();
+            sumOfSquaredDifferences += Math.pow(value - mean, 2);
+            count++;
+        }
+        double variance = sumOfSquaredDifferences / (count - 1);
+        return Math.sqrt(variance);
+    }
+
+    /**
+     * Creates a linkedList for de Numbers of the files
+     * @param fileName
+     * @return
+     */
+    public static LinkedList<Double> createLinkedListFromFile(String fileName) {
+        LinkedList<Double> linkedList = new LinkedList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                double value = Double.parseDouble(line);
+                linkedList.addLast(value);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+        return linkedList;
     }
 
 }
