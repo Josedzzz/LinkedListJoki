@@ -1,6 +1,4 @@
-package list;
-
-import java.util.List;
+package simpleList;
 
 public class Main {
     public static void main(String[] args) {

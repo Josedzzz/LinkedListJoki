@@ -1,4 +1,4 @@
-package list;
+package simpleList;
 
 public class Node<T> {
     T value;
