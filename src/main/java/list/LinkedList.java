@@ -49,7 +49,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
      *
      * @return
      */
-    private int size() {
+    public int size() {
         int size = 0;
         Node<T> current = head;
         while (current != null) {
@@ -191,6 +191,15 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
         if (current.next != null) {
             current.next = current.next.next;
         }
+    }
+
+    /**
+     * Remove the node in a certain position
+     * @param index
+     */
+    public void removeAt(int index) {
+        Node<T> node = getNode(index);
+        remove(node.value);
     }
 
     /**
