@@ -1,4 +1,4 @@
-package org.example;
+package list;
 
 public class Node<T> {
     T value;
