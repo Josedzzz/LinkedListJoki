@@ -2,6 +2,7 @@ package lab;
 
 import doubleList.DoubleLinkedList;
 import polynomial.PolynomialLinkedList;
+import punto13.List;
 import simpleList.LinkedList;
 
 import java.io.BufferedReader;
@@ -126,6 +127,28 @@ public class Exercises {
         linkedList.printLinkedList();
         System.out.println("The mean is: " + getMean());
         System.out.println("The standard deviation is: " + getStandartDeviation());
+
+         /*
+        //13. Do a recurse method to find the maximum distance between a key value of a linkedlist with custom node declaration given by the lab.
+        //The method is in the class LinkedList
+         */
+        System.out.println();
+        //Create a linked list to find the maximum distance bet ween a key value.
+        List maximumDistanceList = new List();
+        //Add values to the list. Added in the same order as in the lab guide.
+        maximumDistanceList.add(9);
+        maximumDistanceList.add(4);
+        maximumDistanceList.add(6);
+        maximumDistanceList.add(8);
+        maximumDistanceList.add(4);
+        maximumDistanceList.add(5);
+        maximumDistanceList.add(4);
+        maximumDistanceList.add(4);
+
+        //Test the maxDistance method.
+        int key = 4;
+        int maxDistance = maximumDistanceList.maxDistanceBetweenKeys(key);
+        System.out.println("The maximum distance between the key value " + key + " is: " + maxDistance);
     }
 
     /**
