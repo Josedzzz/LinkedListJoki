@@ -1,6 +1,7 @@
 package lab;
 
 import doubleList.DoubleLinkedList;
+import polynomial.PolynomialLinkedList;
 import simpleList.LinkedList;
 
 import java.util.Iterator;
@@ -108,6 +109,13 @@ public class Exercises {
 
         System.out.println("List 1 after adding list2:");
         list1.printLinkedList();  // Output: List 1 after adding list2: Apple-> Banana-> Cherry-> Mango-> Guava-> null
+
+        //11. Represent a polynomial of degree n as a linked list, where each node contains the coefficient and the exponent of the nth term.
+        //After representing the polynomial, write a method that allows evaluating the polynomial for a given value of x.
+        System.out.println(" ");
+        System.out.println("Printing the polynomial:");
+        testPolynomialLinkedList();
+        System.out.println();
     }
 
     /**
@@ -209,6 +217,27 @@ public class Exercises {
             }
         }
         return people;
+    }
+
+    /**
+     * Test the point 11.
+     */
+    public static void testPolynomialLinkedList(){
+
+        //Create a polynomial list, the polynomial comes from the class PolynomialLinkedList in LinkedList package.
+        PolynomialLinkedList<Integer> polynomial = new PolynomialLinkedList<>();
+
+        //Few polynomial terms are added. They organize in the list by the exponent value. If there are two terms with the same exponent, the coefficients are not added.
+        polynomial.addPolinomiumTerm(5,2);
+        polynomial.addPolinomiumTerm(3,1);
+        polynomial.addPolinomiumTerm(2,0);
+        polynomial.addPolinomiumTerm(4,3);
+
+        //Print the polynomial
+        polynomial.printPolynomial();
+
+        //Print the value table of the polynomial.
+        polynomial.printValueTable();
     }
 
 }
