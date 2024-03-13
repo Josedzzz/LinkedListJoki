@@ -90,6 +90,24 @@ public class Exercises {
         DoubleLinkedList<Person> ans8 = getPersonsWithEvenId(doublePeople);
         doublePeople.printLinkedList();
         ans8.printLinkedList();
+
+        //10. Write the addAll method
+        LinkedList<String> list1 = new LinkedList<>();
+        list1.addLast("Apple");
+        list1.addLast("Banana");
+        list1.addLast("Cherry");
+
+        LinkedList<String> list2 = new LinkedList<>();
+        list2.addLast("Mango");
+        list2.addLast("Guava");
+
+        System.out.println("List 1 before adding:");
+        list1.printLinkedList();  // Output: List 1 before adding: Apple-> Banana-> Cherry-> null
+
+        list1.addAll(list2);
+
+        System.out.println("List 1 after adding list2:");
+        list1.printLinkedList();  // Output: List 1 after adding list2: Apple-> Banana-> Cherry-> Mango-> Guava-> null
     }
 
     /**

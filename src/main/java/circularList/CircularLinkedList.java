@@ -266,4 +266,58 @@ public class CircularLinkedList<T extends Comparable<T>> implements Iterable<T> 
     }
 
     //SOLUTION FOR LABORATORY -------------------------------------------------------------------------------------
+
+    //9. Write the insert and search method
+
+    /**
+     * Search an element with a certain value
+     * @param value
+     * @return
+     */
+    public int search(T value) {
+        if (isEmpty()) {
+            return -1; // List is empty
+        }
+        CircularNode<T> current = head.next;
+        int position = 0;
+        do {
+            if (current.value.equals(value)) {
+                return position;
+            }
+            current = current.next;
+            position++;
+        } while (current != head.next);
+        return -1; // Value not found
+    }
+
+    /**
+     * Insert a value on a certain position
+     * @param value
+     * @param position
+     */
+    public void insert(T value, int position) {
+        if (position < 0) {
+            throw new IndexOutOfBoundsException("Invalid position: cannot insert before the beginning");
+        }
+        if (isEmpty()) {
+            addFirst(value);
+            return;
+        }
+        if (position == 0) {
+            addFirst(value);
+            return;
+        }
+        if (position >= size) {
+            addLast(value);
+            return;
+        }
+        CircularNode<T> newNode = new CircularNode<>(value);
+        CircularNode<T> current = head.next;
+        for (int i = 0; i < position - 1; i++) {
+            current = current.next;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+        size++;
+    }
 }

@@ -334,4 +334,21 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
             }
         };
     }
+
+    //SOLUTION LABORATORY -----------------------------------------------------------------------
+
+    //10. Write the addAll method
+
+    /**
+     * Adds all the values of an other list
+     * @param list2
+     */
+    public void addAll(LinkedList<T> list2) {
+        Node<T> current = list2.head;
+        while (current != null) {
+            this.addLast(current.value);
+            current = current.next;
+        }
+    }
+
 }
