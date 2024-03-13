@@ -274,16 +274,20 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T> {
             return;  // Nothing to reverse (empty or single-node list)
         }
         DoubleNode<T> current = head;
-        DoubleNode<T> temp = null;
+        DoubleNode<T> prev = null;
         while (current != null) {
-            // Swap the previous and next pointers of the current node
-            temp = current.previous;
+            // Swap previous and next pointers of the current node
+            DoubleNode<T> next = current.next;
             current.previous = current.next;
-            current.next = temp;
-            current = current.previous;  // Move to the previously linked node
+            current.next = prev;
+
+            // Update for the next iteration
+            prev = current;
+            current = next;
         }
-        // After the loop, temp will be pointing to the new head and the old head's previous pointer will be null (becomes the tail)
-        head = temp;
+        // After the loop, prev will be pointing to the new head and the old head's previous pointer needs to be set to null
+        head.previous = null;  // Set the previous pointer of the new tail (original head) to null
+        head = prev;            // Update head to point to the new head (the original last node)
     }
 
     /**
