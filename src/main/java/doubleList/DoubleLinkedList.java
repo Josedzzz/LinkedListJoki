@@ -312,4 +312,18 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T> {
             }
         };
     }
+
+    //LABORATORY METHODS ---------------------------------------------------------------------------
+
+    /**
+     * 6. Print the doubleLinkedList backwards
+     */
+    public void printBackwards() {
+        DoubleNode<T> current = tail;
+        while (current != null) {
+            System.out.print(current.value + " <-> ");
+            current = current.previous;
+        }
+        System.out.println("null");
+    }
 }

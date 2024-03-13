@@ -1,5 +1,6 @@
 package lab;
 
+import doubleList.DoubleLinkedList;
 import simpleList.LinkedList;
 
 import java.util.Iterator;
@@ -71,7 +72,24 @@ public class Exercises {
         int count = countValueReps(list, 2);
         System.out.println("The repetitions for the value: " + count);
 
+        //6. Print the doubleLinkedList backwards
+        DoubleLinkedList<Integer> doubleList = new DoubleLinkedList<>();
+        doubleList.addLast(1);
+        doubleList.addLast(2);
+        doubleList.addLast(3);
+        doubleList.addLast(4);
+        doubleList.addLast(5);
+        doubleList.printLinkedList();
+        doubleList.printBackwards();
 
+        //8. Obtain the list of persons who have an Id with an even number in a doubleLinkedList
+        DoubleLinkedList<Person> doublePeople = new DoubleLinkedList<>();
+        doublePeople.addLast(p1);
+        doublePeople.addLast(p2);
+        doublePeople.addLast(p3);
+        DoubleLinkedList<Person> ans8 = getPersonsWithEvenId(doublePeople);
+        doublePeople.printLinkedList();
+        ans8.printLinkedList();
     }
 
     /**
@@ -158,6 +176,21 @@ public class Exercises {
         return count;
     }
 
-
+    /**
+     * 8. Obtain the list of persons who have an Id with an even number in a doubleLinkedList
+     * @param list
+     * @return
+     */
+    public static DoubleLinkedList<Person> getPersonsWithEvenId(DoubleLinkedList<Person> list) {
+        DoubleLinkedList<Person> people = new DoubleLinkedList<>();
+        Iterator<Person> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Person p = iterator.next();
+            if (p.isIdEven()) {
+                people.addLast(p);
+            }
+        }
+        return people;
+    }
 
 }
