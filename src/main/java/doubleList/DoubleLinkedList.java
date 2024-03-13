@@ -129,15 +129,6 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T> {
     }
 
     /**
-     * Checl if an index is valid
-     * @param index
-     * @return
-     */
-    private boolean isValidIndex(int index) {
-        return index >= 0 && index < size;
-    }
-
-    /**
      * Remove the first node of the list
      */
     public void removeFirst() {
@@ -193,22 +184,127 @@ public class DoubleLinkedList<T extends Comparable<T>> implements Iterable<T> {
     }
 
     /**
+     * Remove the node in a certain position
+     * @param index
+     */
+    public void removeAt(int index) {
+        DoubleNode<T> doubleNode = getNode(index);
+        remove(doubleNode.value);
+    }
+
+    /**
+     * Modify the value of the node that are located in the position
+     * @param position
+     * @param newValue
+     */
+    public void setValue(int position, T newValue) {
+        DoubleNode<T> doubleNode = getNode(position);
+        doubleNode.value = newValue;
+    }
+
+    /**
+     * Sort a doubleLinkedList
+     */
+    public void sort() {
+        if (head == null || head.next == null) {
+            return;  // List is already sorted or empty
+        }
+        DoubleNode<T> sorted = head;
+        DoubleNode<T> current = head.next;
+        while (current != null) {
+            DoubleNode<T> next = current.next;
+            // Find the correct position for the current node in the sorted sub-list
+            DoubleNode<T> insertAfter = sorted;
+            while (insertAfter != current && insertAfter.value.compareTo(current.value) < 0) {
+                insertAfter = insertAfter.next;
+            }
+            if (insertAfter != current) {
+                // Remove the current node from its current position
+                current.previous.next = next;
+                if (next != null) {
+                    next.previous = current.previous;
+                }
+                // Insert the current node after the insertAfter node
+                current.next = insertAfter.next;
+                if (insertAfter.next != null) {
+                    insertAfter.next.previous = current;
+                }
+                insertAfter.next = current;
+                current.previous = insertAfter;
+            }
+            current = next;
+        }
+    }
+
+    /**
+     * Print the list
+     */
+    public void printLinkedList() {
+        DoubleNode<T> current = head;
+        while (current != null) {
+            System.out.print(current.value + " <-> ");
+            current = current.next;
+        }
+        System.out.println("null");  // Indicate the end of the list
+    }
+
+    /**
+     * Removes the doubleLinkedList
+     */
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    /**
+     * Check if a index is valid
+     * @param index
+     * @return
+     */
+    private boolean isValidIndex(int index) {
+        return index >= 0 && index < size;
+    }
+
+    /**
+     * Reverse the doubleLinkedList
+     */
+    public void reverse() {
+        if (head == null || head.next == null) {
+            return;  // Nothing to reverse (empty or single-node list)
+        }
+        DoubleNode<T> current = head;
+        DoubleNode<T> temp = null;
+        while (current != null) {
+            // Swap the previous and next pointers of the current node
+            temp = current.previous;
+            current.previous = current.next;
+            current.next = temp;
+            current = current.previous;  // Move to the previously linked node
+        }
+        // After the loop, temp will be pointing to the new head and the old head's previous pointer will be null (becomes the tail)
+        head = temp;
+    }
+
+    /**
      * Implementation of the iterator method of the Iterable interface
      * @return
      */
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private  DoubleNode<T> current = head;
+            private DoubleNode<T> current = head;
 
             @Override
             public boolean hasNext() {
-                return false;
+                return current != null;
             }
 
             @Override
             public T next() {
-                return null;
+                T value = current.value;
+                current = current.next;
+                return value;
             }
         };
     }
